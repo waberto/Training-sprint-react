@@ -8,6 +8,7 @@ import ProductInput from './ProductInput';
 class ProductList extends Component {
     state = {
         products: [],
+        message: null,
         showForm: false
     }
 
@@ -26,6 +27,8 @@ class ProductList extends Component {
                     console.log(res);
                     const products = res.data;
                     this.setState({ products });
+                }).catch(err => {
+                    console.log(err);
                 })
         } else {
             alert('No product added !')
@@ -37,9 +40,7 @@ class ProductList extends Component {
             <div>
                 <h2 className="text-center">Product Details</h2>
 
-                <button onClick={() => this.setState({ showForm: true })}>
-                    Add Product
-                </button>
+
 
                 {this.state.showForm ? this.showForm() : null}
                 <table className="table table-striped">
@@ -55,6 +56,7 @@ class ProductList extends Component {
 
                         {this.state.products.map(
                             product =>
+
                                 <tr key={product.id}>
                                     <td>{product.id}</td>
                                     <td>{product.name}</td>
@@ -67,11 +69,16 @@ class ProductList extends Component {
                                         <button className="btn btn-success">Edit</button>
                                     </td>
                                 </tr>
+
                         )
                         }
 
                     </tbody>
                 </table>
+
+                <button onClick={() => this.setState({ showForm: true })}>
+                    Add Product
+                </button>
             </div>
         );
     }

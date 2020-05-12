@@ -8,37 +8,40 @@ class ProductInput extends Component {
     state = {
         name: '',
         quantity: '',
-        price: ''
+        price: '',
+        message: null
     }
 
+    // handleNameChange = event => {
+    //     console.log('handleNameChange', this);
+    //     this.setState({ name: event.target.value });
+    // }
+
+    // handleQuantityChange = event => {
+    //     console.log('handleQuantityChange', this);
+    //     this.setState({ quantity: event.target.value });
+    // }
+
+    // handlePriceChange = event => {
+    //     console.log('handlePriceChange', this);
+    //     this.setState({ price: event.target.value });
+    // }
+
     handleNameChange = event => {
-        console.log('handleNameChange', this);
-        this.setState({ name: event.target.value });
+        //this.setState({ [event.target.name]: event.target.value });
+        const { name, value } = event.target
+        this.setState({ [name]: value })
+        //this.setState({ value: event.target.value });
     }
 
     handleQuantityChange = event => {
-        console.log('handleQuantityChange', this);
-        this.setState({ quantity: event.target.value });
+        this.setState({ value: event.target.value });
+        //this.setState({ [event.target.quantity]: event.target.value });
     }
 
     handlePriceChange = event => {
-        console.log('handlePriceChange', this);
-        this.setState({ price: event.target.value });
-    }
-
-    handleNameChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
-        //this.setState({ value: event.target.value });
-    }
-
-    handleQuantityChange = event => {
-        //this.setState({ value: event.target.value });
-        this.setState({ [event.target.quantity]: event.target.value });
-    }
-
-    handlePriceChange = event => {
-        //this.setState({ value: event.target.value });
-        this.setState({ [event.target.price]: event.target.value });
+        this.setState({ value: event.target.value });
+        //this.setState({ [event.target.price]: event.target.value });
     }
 
     handleSubmit = event => {
@@ -52,8 +55,8 @@ class ProductInput extends Component {
 
         const product = { ...this.state }
 
-        if (this.state.name === '' || this.state.quantity === '' || this.state.price === '') {
-
+        if (this.state.name !== '' && this.state.quantity !== '' && this.state.price !== '') {
+           
             console.log('name', this.state.name, 'quantity', this.state.quantity, 'price', this.state.price);
 
             axios.post(`http://localhost:9191/addProduct`,
@@ -62,6 +65,7 @@ class ProductInput extends Component {
                     console.log(res);
                     console.log("Added successfully");
                     console.log(res.data);
+                    this.setState({ message: 'Product added successfully.'})
                 }).catch(err => {
                     console.log(err);
                 });
@@ -82,28 +86,28 @@ class ProductInput extends Component {
         return (
             <div>
                 <h2 className="text">Add Product</h2>
-                <form className="admin-form ajouter-produit" onClick={this.handleSubmit}>
+                <form>
 
-                    <div>
+                    <div className="form-group">
                         <label>Product name: </label>
                         <input type="text" name="name" onChange={this.handleNameChange}
                             value={this.state.name} placeholder='Nom du produit' className="form-control" />
                     </div>
 
-                    <div>
+                    <div className="form-group">
                         <label>Quantity: </label>
-                        <input value={this.state.quantity} onChange={this.handleQuantityChange}
-                            name='quantity' type="text" placeholder='Quantité' className="form-control" />
+                        <input value={this.state.quantity} onChange={this.handleNameChange}
+                            name='quantity' type="number" placeholder=' Quantite du produit' className="form-control" />
                     </div>
 
-                    <div>
+                    <div className="form-group">
                         <label>Price: </label>
                         <input value={this.state.price} onChange={this.handleNameChange}
-                            name='price' type="text" placeholder='Nom du produit' className="form-control" />
+                            name='price' type="number" placeholder='Prix du produit' className="form-control" />
                     </div>
 
                     <div>
-                        <button className="btn btn-success" type="submit">Add new product</button>
+                        <button className="btn btn-success" onClick={this.handleSubmit}>Add new product</button>
                     </div>
 
 
