@@ -8,7 +8,6 @@ import ProductInput from './ProductInput';
 class ProductList extends Component {
     state = {
         products: [],
-        message: null,
         showForm: false
     }
 
@@ -24,7 +23,6 @@ class ProductList extends Component {
         if (this.state.products !== '') {
             axios.get(`http://localhost:9191/products`)
                 .then(res => {
-                    console.log(res);
                     const products = res.data;
                     this.setState({ products });
                 }).catch(err => {
@@ -40,9 +38,6 @@ class ProductList extends Component {
             <div>
                 <h2 className="text-center">Product Details</h2>
 
-
-
-                {this.state.showForm ? this.showForm() : null}
                 <table className="table table-striped">
                     <thead>
                         <tr>
@@ -55,13 +50,13 @@ class ProductList extends Component {
                     <tbody>
 
                         {this.state.products.map(
-                            product =>
+                            (product, index) =>
 
-                                <tr key={product.id}>
+                                <tr key={index}>
                                     <td>{product.id}</td>
                                     <td>{product.name}</td>
-                                    <td>{product.price}</td>
                                     <td>{product.quantity}</td>
+                                    <td>{product.price}</td>
                                     <td>
                                         <button className="btn btn-success">Delete</button>
                                     </td>
@@ -79,6 +74,7 @@ class ProductList extends Component {
                 <button onClick={() => this.setState({ showForm: true })}>
                     Add Product
                 </button>
+                {this.state.showForm ? this.showForm() : null}
             </div>
         );
     }

@@ -12,48 +12,34 @@ class ProductInput extends Component {
         message: null
     }
 
-    // handleNameChange = event => {
-    //     console.log('handleNameChange', this);
-    //     this.setState({ name: event.target.value });
-    // }
 
-    // handleQuantityChange = event => {
-    //     console.log('handleQuantityChange', this);
-    //     this.setState({ quantity: event.target.value });
-    // }
-
-    // handlePriceChange = event => {
-    //     console.log('handlePriceChange', this);
-    //     this.setState({ price: event.target.value });
-    // }
 
     handleNameChange = event => {
-        //this.setState({ [event.target.name]: event.target.value });
-        const { name, value } = event.target
-        this.setState({ [name]: value })
-        //this.setState({ value: event.target.value });
+       this.setState({ name: event.target.value })
     }
 
+    
     handleQuantityChange = event => {
-        this.setState({ value: event.target.value });
-        //this.setState({ [event.target.quantity]: event.target.value });
-    }
+        this.setState({ quantity:  event.target.value })
+     }
 
+     
     handlePriceChange = event => {
-        this.setState({ value: event.target.value });
-        //this.setState({ [event.target.price]: event.target.value });
-    }
+        this.setState({ price:  event.target.value })
+     }
+
 
     handleSubmit = event => {
+        //alert('nom : ' + this.state.name + ' quantité : ' + this.state.quantity + 'price : ' + this.state.price)
         event.preventDefault()
 
-        // const product = {
-        //     name: this.state.name,
-        //     quantity: this.state.quantity,
-        //     price: this.state.price
-        // }
+        //const product = { ...this.state }
 
-        const product = { ...this.state }
+        const product = {
+            name: this.state.name,
+            quantity: this.state.quantity,
+            price: this.state.price
+        }
 
         if (this.state.name !== '' && this.state.quantity !== '' && this.state.price !== '') {
            
@@ -93,16 +79,16 @@ class ProductInput extends Component {
                         <input type="text" name="name" onChange={this.handleNameChange}
                             value={this.state.name} placeholder='Nom du produit' className="form-control" />
                     </div>
-
+            
                     <div className="form-group">
                         <label>Quantity: </label>
-                        <input value={this.state.quantity} onChange={this.handleNameChange}
+                        <input value={this.state.quantity} onChange={this.handleQuantityChange}
                             name='quantity' type="number" placeholder=' Quantite du produit' className="form-control" />
                     </div>
 
                     <div className="form-group">
                         <label>Price: </label>
-                        <input value={this.state.price} onChange={this.handleNameChange}
+                        <input value={this.state.price} onChange={this.handlePriceChange}
                             name='price' type="number" placeholder='Prix du produit' className="form-control" />
                     </div>
 
